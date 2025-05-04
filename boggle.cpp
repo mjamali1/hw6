@@ -102,9 +102,7 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
       result.insert(word);
       return true;
     }
-    else {
-      return false;
-    }
+    return false;
   }
 
   std::string newWord = word + board[r][c];
@@ -112,7 +110,7 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
     if (boggleHelper(dict, prefix, board, newWord, result, dr+r, dc+c, dr, dc)) {
       return boggleHelper(dict, prefix, board, newWord, result, dr+r, dc+c, dr, dc);
     }
-    else if (boggleHelper(dict, prefix, board, newWord, result, dr+r, dc+c, dr, dc) == false) {
+    else if (!boggleHelper(dict, prefix, board, newWord, result, dr+r, dc+c, dr, dc)) {
       result.insert(word);
       return true;
     }
