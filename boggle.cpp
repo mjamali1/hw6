@@ -96,4 +96,34 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 {
 //add your solution here!
 
+  // check out of bounds
+  if (r >= board.size() || c>= board[r].size()) {
+    if(dict.find(word) != dict.end()) {
+      result.insert(word);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  std::string newWord = word + board[r][c];
+  if (dict.find(word) != dict.end()) {
+    if (boggleHelper(dict, prefix, board, newWord, result, dr+r, dc+c, dr, dc)) {
+      return boggleHelper(dict, prefix, board, newWord, result, dr+r, dc+c, dr, dc);
+    }
+    else if (boggleHelper(dict, prefix, board, newWord, result, dr+r, dc+c, dr, dc) == false) {
+      result.insert(word);
+      return true;
+    }
+  }
+  else if (prefix.find(word)!=prefix.end()) {
+    if(dict.find(word) == dict.end()) {
+     return boggleHelper(dict, prefix, board, newWord, result, dr+r, dc+c, dr, dc);
+    }
+  }
+  else {
+    return false;
+  }
+
 }
